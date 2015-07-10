@@ -25,17 +25,8 @@ describe( 'number Uniform-pdf', function tests() {
 	});
 
 	it( 'should evaluate the Uniform pdf for a single value', function test() {
-		assert.closeTo( pdf( 2 ), , 1e-4 );
-	});
-
-	it( 'should return NaN if provided a NaN', function test() {
-		var val = pdf( NaN );
-		assert.isNumber( val );
-		assert.ok( val !== val );
-	});
-
-	it( 'should return a numeric value if provided a numeric value', function test() {
-		assert.isNumber( pdf( 1 ) );
+		assert.strictEqual( pdf( 0.5, 0, 1 ), 1 );
+		assert.strictEqual( pdf( 1.5, 0, 1 ), 0 );
 	});
 
 });

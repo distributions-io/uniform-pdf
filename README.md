@@ -6,7 +6,7 @@ Probability Density Function#
 
 The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [Uniform](https://en.wikipedia.org/wiki/Uniform_distribution) random variable is
 
-<div class="equation" align="center" data-raw-text="" data-equation="eq:pdf_function">
+<div class="equation" align="center" data-raw-text="f(x;a,b)=\begin{cases} \frac{1}{b - a} & \text{for } x \in [a,b] \\ 0 & \text{otherwise} \end{cases}" data-equation="eq:pdf_function">
 	<img src="" alt="Probability density function (PDF) for a Uniform distribution.">
 	<br>
 </div>

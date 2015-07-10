@@ -36,7 +36,7 @@ describe( 'matrix Uniform-pdf', function tests() {
 	d2 = new Float64Array( 25 );
 	for ( i = 0; i < d1.length; i++ ) {
 		d1[ i ] = i / 5;
-		d2[ i ] = PDF( i / 5 );
+		d2[ i ] = PDF( i / 5, 2, 4 );
 	}
 
 	beforeEach( function before() {
@@ -58,8 +58,8 @@ describe( 'matrix Uniform-pdf', function tests() {
 	it( 'should evaluate the Uniform pdf for each matrix element', function test() {
 		var actual;
 
-		actual = matrix( [5,5], 'int16' );
-		actual = pdf( actual, mat );
+		actual = matrix( [5,5], 'float64' );
+		actual = pdf( actual, mat, 2, 4 );
 
 		assert.deepEqual( actual.data, out.data );
 	});

@@ -38,10 +38,16 @@ describe( 'accessor Uniform-pdf', function tests() {
 		];
 		actual = new Array( data.length );
 
-		actual = pdf( actual, data, getValue );
+		actual = pdf( actual, data, -2, 2, getValue );
 
 		expected = [
-
+			0,
+			1/4,
+			1/4,
+			1/4,
+			1/4,
+			1/4,
+			0
 		];
 
 		for ( i = 0; i < actual.length; i++ ) {
@@ -71,7 +77,7 @@ describe( 'accessor Uniform-pdf', function tests() {
 			{'x':{}}
 		];
 		actual = new Array( data.length );
-		actual = pdf( actual, data, getValue );
+		actual = pdf( actual, data, 0, 1, getValue );
 
 		expected = [ NaN, NaN, NaN, NaN ];
 

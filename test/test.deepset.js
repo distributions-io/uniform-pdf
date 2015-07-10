@@ -37,10 +37,16 @@ describe( 'deepset Uniform-pdf', function tests() {
 			{'x':3}
 		];
 
-		data = pdf( data, 'x' );
+		data = pdf( data, -2, 2, 'x' );
 
 		expected = [
-
+			{'x':0},
+			{'x':1/4},
+			{'x':1/4},
+			{'x':1/4},
+			{'x':1/4},
+			{'x':1/4},
+			{'x':0}
 		];
 
 		for ( i = 0; i < data.length; i++ ) {
@@ -58,9 +64,15 @@ describe( 'deepset Uniform-pdf', function tests() {
 			{'x':[9,3]}
 		];
 
-		data = pdf( data, 'x/1', '/' );
+		data = pdf( data, -2, 2, 'x/1', '/' );
 		expected = [
-
+			{'x':[9,0]},
+			{'x':[9,1/4]},
+			{'x':[9,1/4]},
+			{'x':[9,1/4]},
+			{'x':[9,1/4]},
+			{'x':[9,1/4]},
+			{'x':[9,0]}
 		];
 
 		for ( i = 0; i < data.length; i++ ) {
@@ -69,8 +81,8 @@ describe( 'deepset Uniform-pdf', function tests() {
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {
-		assert.deepEqual( pdf( [], 'x' ), [] );
-		assert.deepEqual( pdf( [], 'x', '/' ), [] );
+		assert.deepEqual( pdf( [], 0, 1, 'x' ), [] );
+		assert.deepEqual( pdf( [], 0, 1, 'x', '/' ), [] );
 	});
 
 	it( 'should handle non-numeric values by setting the element to NaN', function test() {
@@ -82,7 +94,7 @@ describe( 'deepset Uniform-pdf', function tests() {
 			{'x':[]},
 			{'x':{}}
 		];
-		actual = pdf( data, 'x' );
+		actual = pdf( data, 0, 1, 'x' );
 
 		expected = [
 			{'x':NaN},

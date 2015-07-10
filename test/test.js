@@ -111,6 +111,26 @@ describe( 'distributions-uniform-pdf', function tests() {
 		}
 	});
 
+	it( 'should throw an error if provided parameters `a` and `b` for which a >= b', function test() {
+		var values = [
+			[ 2, 1 ],
+			[ 3, 3 ],
+			[ -1, -2 ]
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( Error );
+		}
+		function badValue( value ) {
+			return function() {
+				pdf( [ 1, 2, 3, 4 ], {
+					'a': value[ 0 ],
+					'b': value[ 1 ]
+				});
+			};
+		}
+	});
+
 	it( 'should return NaN if the first argument is neither a number, array-like, or matrix-like', function test() {
 		var values = [
 			// '5', // valid as is array-like (length)
@@ -129,6 +149,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 	it( 'should compute the Uniform pdf when provided a number', function test() {
 		assert.strictEqual( pdf( -1 ), 0 );
+		assert.strictEqual( pdf( 0.5 ), 1 );
 	});
 
 	it( 'should evaluate the Uniform pdf when provided a plain array', function test() {
@@ -136,10 +157,13 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 		data = [ -3, -2, -1, 0, 1, 2, 3 ];
 		expected = [
-
+			0, 1/4, 1/4, 1/4, 1/4, 1/4, 0
 		];
 
-		actual = pdf( data );
+		actual = pdf( data, {
+			'a': -2,
+			'b': 2
+		});
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
@@ -148,6 +172,8 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 		// Mutate...
 		actual = pdf( data, {
+			'a': -2,
+			'b': 2,
 			'copy': false
 		});
 		assert.strictEqual( actual, data );
@@ -163,10 +189,13 @@ describe( 'distributions-uniform-pdf', function tests() {
 		data = new Int8Array( [ -3, -2, -1, 0, 1, 2, 3 ] );
 
 		expected = new Float64Array([
-
+			0, 1/4, 1/4, 1/4, 1/4, 1/4, 0
 		]);
 
-		actual = pdf( data );
+		actual = pdf( data, {
+			'a': -2,
+			'b': 2
+		});
 		assert.notEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
@@ -175,10 +204,12 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 		// Mutate:
 		actual = pdf( data, {
+			'a': -2,
+			'b': 2,
 			'copy': false
 		});
 		expected = new Int8Array([
-
+			0, 0, 0, 0, 0, 0, 0
 		]);
 		assert.strictEqual( actual, data );
 
@@ -192,7 +223,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 		data = [ -3, -2, -1, 0, 1, 2, 3 ];
 		expected = new Int8Array([
-
+			0, 0, 0, 1, 1, 0, 0
 		]);
 
 		actual = pdf( data, {
@@ -218,10 +249,18 @@ describe( 'distributions-uniform-pdf', function tests() {
 		];
 
 		expected = [
-
+			0,
+			1/4,
+			1/4,
+			1/4,
+			1/4,
+			1/4,
+			0
 		];
 
 		actual = pdf( data, {
+			'a': -2,
+			'b': 2,
 			'accessor': getValue
 		});
 		assert.notEqual( actual, data );
@@ -232,6 +271,8 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 		// Mutate:
 		actual = pdf( data, {
+			'a': -2,
+			'b': 2,
 			'accessor': getValue,
 			'copy': false
 		});
@@ -259,10 +300,18 @@ describe( 'distributions-uniform-pdf', function tests() {
 			{'x':[6,3]}
 		];
 		expected = [
-
+			{'x':[0,0]},
+			{'x':[1,1/4]},
+			{'x':[2,1/4]},
+			{'x':[3,1/4]},
+			{'x':[4,1/4]},
+			{'x':[5,1/4]},
+			{'x':[6,0]}
 		];
 
 		actual = pdf( data, {
+			'a': -2,
+			'b': 2,
 			'path': 'x.1'
 		});
 
@@ -283,6 +332,8 @@ describe( 'distributions-uniform-pdf', function tests() {
 			{'x':[6,3]}
 		];
 		actual = pdf( data, {
+			'a': -2,
+			'b': 2,
 			'path': 'x/1',
 			'sep': '/'
 		});
@@ -304,15 +355,20 @@ describe( 'distributions-uniform-pdf', function tests() {
 		d2 = new Float64Array( 25 );
 		for ( i = 0; i < d1.length; i++ ) {
 			d1[ i ] = i / 5;
-			d2[ i ] = PDF( i / 5 );
+			d2[ i ] = PDF( i / 5, 2, 4 );
 		}
 		mat = matrix( d1, [5,5], 'float64' );
-		out = pdf( mat );
+		out = pdf( mat, {
+			'a': 2,
+			'b': 4
+		});
 
 		assert.deepEqual( out.data, d2 );
 
 		// Mutate...
 		out = pdf( mat, {
+			'a': 2,
+			'b': 4,
 			'copy': false
 		});
 		assert.strictEqual( mat, out );
@@ -330,10 +386,12 @@ describe( 'distributions-uniform-pdf', function tests() {
 		d2 = new Float32Array( 25 );
 		for ( i = 0; i < d1.length; i++ ) {
 			d1[ i ] = i / 5;
-			d2[ i ] = PDF( i / 5 );
+			d2[ i ] = PDF( i / 5, 2, 4 );
 		}
 		mat = matrix( d1, [5,5], 'float64' );
 		out = pdf( mat, {
+			'a': 2,
+			'b': 4,
 			'dtype': 'float32'
 		});
 

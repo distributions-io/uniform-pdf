@@ -26,8 +26,12 @@ describe( 'number Uniform-pdf', function tests() {
 
 	it( 'should partially apply the Uniform pdf for given parameter values', function test() {
 		var pdf;
-		pdf = partial( 0 );
+		pdf = partial( -10, 10 );
 		expect( pdf ).to.be.a( 'function' );
+
+		assert.strictEqual( pdf( 20 ), 0 );
+		assert.strictEqual( pdf( 9 ), 1/20 );
+
 	});
 
 });

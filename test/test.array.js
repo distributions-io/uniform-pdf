@@ -28,27 +28,27 @@ describe( 'array Uniform-pdf', function tests() {
 		var data, actual, expected, i;
 
 		data = [
-			1e-306,
-			-1e-306,
-			1e-299,
-			-1e-299,
-			0.8,
-			-0.8,
-			1,
-			-1,
-			10,
-			-10,
-			2,
-			-2,
-			3,
-			-3
+				1e-306,
+				-1e-306,
+				1e-299,
+				-1e-299,
+				0.8,
+				-0.8,
+				1,
+				-1,
+				10,
+				-10,
+				2,
+				-2,
+				3,
+				-3
 		];
 		actual = new Array( data.length );
 
-		actual = pdf( actual, data );
+		actual = pdf( actual, data, -1, 1 );
 
 		expected = [
-
+			0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 		];
 
 		for ( i = 0; i < actual.length; i++ ) {
@@ -65,7 +65,7 @@ describe( 'array Uniform-pdf', function tests() {
 
 		data = [ true, null, [], {} ];
 		actual = new Array( data.length );
-		actual = pdf( actual, data );
+		actual = pdf( actual, data, 0, 1 );
 
 		expected = [ NaN, NaN, NaN, NaN ];
 

@@ -45,11 +45,10 @@ describe( 'typed-array Uniform-pdf', function tests() {
 		]);
 		actual = new Float64Array( data.length );
 
-		actual = pdf( actual, data );
+		actual = pdf( actual, data, -1, 1 );
 
-		// Evaluated on Wolfram Alpha:
 		expected = new Float64Array([
-
+			0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 		]);
 
 		for ( i = 0; i < actual.length; i++ ) {
