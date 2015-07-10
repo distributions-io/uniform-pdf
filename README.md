@@ -11,7 +11,7 @@ The [probability density function](https://en.wikipedia.org/wiki/Probability_den
 	<br>
 </div>
 
-where
+where `a` is the minimum value and `b` is the maximum value of the distribution.
 
 ## Installation
 
@@ -142,8 +142,8 @@ var data = [
 ];
 
 var out = pdf( data, {
-	'path': 'x|1', 
-	'sep': '|' 
+	'path': 'x|1',
+	'sep': '|'
 });
 /*
 	[
@@ -216,7 +216,7 @@ out = pdf( mat, {
 });
 /*
 	[ 1 1
-	  1 0 
+	  1 0
 	  0 0 ]
 */
 
