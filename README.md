@@ -94,7 +94,7 @@ The function accepts the following `options`:
 *	__path__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path.
 *	__sep__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path separator. Default: `'.'`.
 
-A [Uniform](https://en.wikipedia.org/wiki/Uniform_distribution) distribution is a function of 2 parameter(s): `a`(minimum value) and `b`(maximum value). By default, `a` is equal to `0` and `b` is equal to `1`. To adjust either parameter, set the corresponding option(s).
+A [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution is a function of 2 parameter(s): `a`(minimum value) and `b`(maximum value). By default, `a` is equal to `0` and `b` is equal to `1`. To adjust either parameter, set the corresponding option(s).
 
 ``` javascript
 var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
