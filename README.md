@@ -2,12 +2,12 @@ Probability Density Function#
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> [Uniform](https://en.wikipedia.org/wiki/Uniform_distribution) distribution probability density function (PDF).
+> [Continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution probability density function (PDF).
 
-The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [Uniform](https://en.wikipedia.org/wiki/Uniform_distribution) random variable is
+The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) random variable is
 
 <div class="equation" align="center" data-raw-text="f(x;a,b)=\begin{cases} \frac{1}{b - a} & \text{for } x \in [a,b] \\ 0 & \text{otherwise} \end{cases}" data-equation="eq:pdf_function">
-	<img src="" alt="Probability density function (PDF) for a Uniform distribution.">
+	<img src="https://cdn.rawgit.com/distributions-io/uniform-pdf/3f431ac7f7c1eef0bdc89e33caf772164ae8c0a2/docs/img/eqn.svg" alt="Probability density function (PDF) for a continuous uniform distribution.">
 	<br>
 </div>
 
@@ -30,7 +30,7 @@ var pdf = require( 'distributions-uniform-pdf' );
 
 #### pdf( x[, options] )
 
-Evaluates the [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for the [Uniform](https://en.wikipedia.org/wiki/Uniform_distribution) distribution. `x` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
+Evaluates the [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for the [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution. `x` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
 
 ``` javascript
 var matrix = require( 'dstructs-matrix' ),
@@ -39,19 +39,31 @@ var matrix = require( 'dstructs-matrix' ),
 	x,
 	i;
 
+// Standard uniform: [a,b] = [0,1]
 out = pdf( 1 );
-// returns
+// returns 1
 
 out = pdf( -1 );
 // returns 0
 
+// Non-standard uniform:
+out = pdf( 3, {
+	'a': 0,
+	'b': 10
+}
+// returns 1 / 10
+
+out = pdf( -1 );
+// returns 0
+
+// Arrays:
 x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 out = pdf( x );
-// returns [...]
+// returns [ 0, 1, 1, 0, 0, 0 ]
 
 x = new Int8Array( x );
 out = pdf( x );
-// returns Float64Array( [...] )
+// returns Float64Array( [1,1,1,0,0,0] )
 
 x = new Int16Array( 6 );
 for ( i = 0; i < 6; i++ ) {
@@ -66,9 +78,9 @@ mat = matrix( x, [3,2], 'int16' );
 
 out = pdf( mat );
 /*
-	[
-
-	   ]
+	[ 1 1
+	  1 0
+	  0 0 ]
 */
 ```
 
@@ -91,7 +103,7 @@ var out = pdf( x, {
 	'a': 2,
 	'b': 4,
 });
-// returns [...]
+// returns [ 0, 0, 0, 0, 1/2, 1/2 ]
 ```
 
 For non-numeric `arrays`, provide an accessor `function` for accessing `array` values.
@@ -113,7 +125,7 @@ function getValue( d, i ) {
 var out = pdf( data, {
 	'accessor': getValue
 });
-// returns [...]
+// returns [ 1, 1, 1, 0, 0, 0 ]
 ```
 
 
@@ -129,15 +141,18 @@ var data = [
 	{'x':[5,2.5]}
 ];
 
-var out = pdf( data, 'x|1', '|' );
+var out = pdf( data, {
+	'path': 'x|1', 
+	'sep': '|' 
+});
 /*
 	[
-		{'x':[0,]},
-		{'x':[1,]},
-		{'x':[2,]},
-		{'x':[3,]},
-		{'x':[4,]},
-		{'x':[5,]}
+		{'x':[0,1]},
+		{'x':[1,1]},
+		{'x':[2,1]},
+		{'x':[3,0]},
+		{'x':[4,0]},
+		{'x':[5,0]}
 	]
 */
 
@@ -153,15 +168,17 @@ var x, out;
 x = new Int8Array( [0,1,2,3,4] );
 
 out = pdf( x, {
+	'a': 2,
+	'b : 3,
 	'dtype': 'int32'
 });
-// returns Int32Array( [...] )
+// returns Int32Array( [0,0,1,1,0] )
 
 // Works for plain arrays, as well...
 out = pdf( [0,0.5,1,1.5,2], {
 	'dtype': 'uint8'
 });
-// returns Uint8Array( [...] )
+// returns Uint8Array( [0,0,1,1,0] )
 ```
 
 By default, the function returns a new data structure. To mutate the input data structure (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
@@ -178,7 +195,7 @@ x = [ 0, 0.5, 1, 1.5, 2 ];
 out = pdf( x, {
 	'copy': false
 });
-// returns [...]
+// returns [ 1, 1, 1, 0, 0 ]
 
 bool = ( x === out );
 // returns true
@@ -198,9 +215,9 @@ out = pdf( mat, {
 	'copy': false
 });
 /*
-	[
-
-	   ]
+	[ 1 1
+	  1 0 
+	  0 0 ]
 */
 
 bool = ( mat === out );
@@ -280,7 +297,7 @@ var data,
 // Plain arrays...
 data = new Array( 10 );
 for ( i = 0; i < data.length; i++ ) {
-	data[ i ] = i * 0.5;
+	data[ i ] = Math.random() * 2;
 }
 out = pdf( data );
 
@@ -309,14 +326,14 @@ out = pdf( data, {
 });
 
 // Typed arrays...
-data = new Int32Array( 10 );
+data = new Float32Array( 10 );
 for ( i = 0; i < data.length; i++ ) {
-	data[ i ] = i;
+	data[ i ] = Math.random() * 2;
 }
 out = pdf( data );
 
 // Matrices...
-mat = matrix( data, [5,2], 'int32' );
+mat = matrix( data, [5,2], 'float32' );
 out = pdf( mat );
 
 // Matrices (custom output data type)...
