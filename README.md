@@ -65,11 +65,11 @@ x = new Int8Array( x );
 out = pdf( x );
 // returns Float64Array( [1,1,1,0,0,0] )
 
-x = new Int16Array( 6 );
+x = new Float64Array( 6 );
 for ( i = 0; i < 6; i++ ) {
-	x[ i ] = i*0.5;
+	x[ i ] = i * 0.5;
 }
-mat = matrix( x, [3,2], 'int16' );
+mat = matrix( x, [3,2], 'float64' );
 /*
 	[ 0  0.5
 	  1  1.5
