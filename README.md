@@ -94,7 +94,7 @@ The function accepts the following `options`:
 *	__path__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path.
 *	__sep__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path separator. Default: `'.'`.
 
-A [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution is a function of 2 parameter(s): `a`(minimum value) and `b`(maximum value). By default, `a` is equal to `0` and `b` is equal to `1`. To adjust either parameter, set the corresponding option(s).
+A [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution is a function of two parameters: `a`(minimum value) and `b`(maximum value). By default, `a` is equal to `0` and `b` is equal to `1`. To adjust either parameter, set the corresponding option.
 
 ``` javascript
 var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
@@ -169,13 +169,15 @@ x = new Int8Array( [0,1,2,3,4] );
 
 out = pdf( x, {
 	'a': 2,
-	'b : 3,
+	'b' : 3,
 	'dtype': 'int32'
 });
 // returns Int32Array( [0,0,1,1,0] )
 
 // Works for plain arrays, as well...
-out = pdf( [0,0.5,1,1.5,2], {
+out = pdf( [0,1,2,3,4], {
+	'a': 2,
+	'b' : 3,
 	'dtype': 'uint8'
 });
 // returns Uint8Array( [0,0,1,1,0] )
@@ -200,11 +202,11 @@ out = pdf( x, {
 bool = ( x === out );
 // returns true
 
-x = new Int16Array( 6 );
+x = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
-	x[ i ] = i*0.5;
+	x[ i ] = i * 0.5;
 }
-mat = matrix( x, [3,2], 'int16' );
+mat = matrix( x, [3,2], 'float32' );
 /*
 	[ 0  0.5
 	  1  1.5
