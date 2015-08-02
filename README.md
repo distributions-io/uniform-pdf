@@ -1,6 +1,6 @@
 Probability Density Function
 ===
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependencies][dependencies-image]][dependencies-url]
 
 > [Continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution probability density function (PDF).
 
