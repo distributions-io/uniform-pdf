@@ -3,16 +3,9 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Matrix data structure:
+var chai = require( 'chai' ),
 	matrix = require( 'dstructs-matrix' ),
-
-	// Module to be tested:
 	pdf = require( './../lib/matrix.js' ),
-
-	// Error function:
 	PDF = require( './../lib/number.js' );
 
 
@@ -24,7 +17,7 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'matrix Uniform-pdf', function tests() {
+describe( 'matrix pdf', function tests() {
 
 	var out,
 		mat,
@@ -55,7 +48,7 @@ describe( 'matrix Uniform-pdf', function tests() {
 		}
 	});
 
-	it( 'should evaluate the Uniform pdf for each matrix element', function test() {
+	it( 'should evaluate the probability density function for each matrix element', function test() {
 		var actual;
 
 		actual = matrix( [5,5], 'float64' );

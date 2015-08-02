@@ -3,10 +3,7 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Module to be tested:
+var chai = require( 'chai' ),
 	pdf = require( './../lib/typedarray.js' );
 
 
@@ -18,14 +15,14 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'typed-array Uniform-pdf', function tests() {
+describe( 'typed-array pdf', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
 	});
 
-	it( 'should evaluate the Uniform pdf', function test() {
-		var data, actual, expected, i;
+	it( 'should evaluate the probability density function', function test() {
+		var data, actual, expected;
 
 		data = new Float64Array([
 			1e-306,
@@ -51,9 +48,7 @@ describe( 'typed-array Uniform-pdf', function tests() {
 			0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 		]);
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {

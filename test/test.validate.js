@@ -3,10 +3,7 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Module to be tested:
+var chai = require( 'chai' ),
 	validate = require( './../lib/validate.js' );
 
 
@@ -41,9 +38,10 @@ describe( 'validate', function tests() {
 		}
 	});
 
-	it( 'should return an error if provided a non-numeric `a` parameter', function test() {
+	it( 'should return an error if provided an option specifying the minimum support which is not a number', function test() {
 		var values, err;
-		 values = [
+
+		values = [
 			'5',
 			[],
 			true,
@@ -61,9 +59,11 @@ describe( 'validate', function tests() {
 			assert.isTrue( err instanceof TypeError );
 		}
 	});
-it( 'should return an error if provided a non-numeric `b` parameter', function test() {
+
+	it( 'should return an error if provided an option specifying the maximum support which is not a number', function test() {
 		var values, err;
-		 values = [
+
+		values = [
 			'5',
 			[],
 			true,
@@ -197,6 +197,8 @@ it( 'should return an error if provided a non-numeric `b` parameter', function t
 		var err;
 
 		err = validate( {}, {
+			'a': -10,
+			'b': 10,
 			'accessor': function getValue(){},
 			'copy': false,
 			'deepset': true,

@@ -3,10 +3,7 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Module to be tested:
+var chai = require( 'chai' ),
 	pdf = require( './../lib/deepset.js' );
 
 
@@ -18,14 +15,14 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'deepset Uniform-pdf', function tests() {
+describe( 'deepset pdf', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
 	});
 
-	it( 'should compute the Uniform pdf and deep set', function test() {
-		var data, expected, i;
+	it( 'should evaluate the probability density function and deep set', function test() {
+		var data, expected;
 
 		data = [
 			{'x':-3},
@@ -49,9 +46,7 @@ describe( 'deepset Uniform-pdf', function tests() {
 			{'x':0}
 		];
 
-		for ( i = 0; i < data.length; i++ ) {
-			assert.closeTo( data[ i ].x, expected[ i ].x, 1e-7 );
-		}
+		assert.deepEqual( data, expected );
 
 		// Custom separator...
 		data = [
@@ -75,9 +70,7 @@ describe( 'deepset Uniform-pdf', function tests() {
 			{'x':[9,0]}
 		];
 
-		for ( i = 0; i < data.length; i++ ) {
-			assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-7, 'custom separator' );
-		}
+		assert.deepEqual( data, expected );
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {

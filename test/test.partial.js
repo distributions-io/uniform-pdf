@@ -3,10 +3,7 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Module to be tested:
+var chai = require( 'chai' ),
 	partial = require( './../lib/partial.js' );
 
 
@@ -18,20 +15,21 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'number Uniform-pdf', function tests() {
+describe( 'partial', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( partial ).to.be.a( 'function' );
 	});
 
-	it( 'should partially apply the Uniform pdf for given parameter values', function test() {
-		var pdf;
-		pdf = partial( -10, 10 );
+	it( 'should return a function', function test() {
+		var pdf = partial( 0, 1 );
 		expect( pdf ).to.be.a( 'function' );
+	});
 
+	it( 'should return a function which evaluates the probability density function', function test() {
+		var pdf = partial( -10, 10 );
 		assert.strictEqual( pdf( 20 ), 0 );
 		assert.strictEqual( pdf( 9 ), 1/20 );
-
 	});
 
 });

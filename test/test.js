@@ -3,19 +3,10 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Matrix data structure:
+var chai = require( 'chai' ),
 	matrix = require( 'dstructs-matrix' ),
-
-	// Validate a value is NaN:
 	isnan = require( 'validate.io-nan' ),
-
-	// Module to be tested:
 	pdf = require( './../lib' ),
-
-	// Error function:
 	PDF = require( './../lib/number.js' );
 
 
@@ -111,7 +102,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 		}
 	});
 
-	it( 'should throw an error if provided parameters `a` and `b` for which a >= b', function test() {
+	it( 'should throw an error if provided support parameters `a` and `b` such that a >= b', function test() {
 		var values = [
 			[ 2, 1 ],
 			[ 3, 3 ],
@@ -137,7 +128,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 			true,
 			undefined,
 			null,
-			// NaN, // allowed
+			NaN,
 			function(){},
 			{}
 		];
@@ -147,13 +138,13 @@ describe( 'distributions-uniform-pdf', function tests() {
 		}
 	});
 
-	it( 'should compute the Uniform pdf when provided a number', function test() {
+	it( 'should evaluate the probability density function when provided a number', function test() {
 		assert.strictEqual( pdf( -1 ), 0 );
 		assert.strictEqual( pdf( 0.5 ), 1 );
 	});
 
-	it( 'should evaluate the Uniform pdf when provided a plain array', function test() {
-		var data, actual, expected, i;
+	it( 'should evaluate the probability density function when provided a plain array', function test() {
+		var data, actual, expected;
 
 		data = [ -3, -2, -1, 0, 1, 2, 3 ];
 		expected = [
@@ -166,9 +157,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 		});
 		assert.notEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 
 		// Mutate...
 		actual = pdf( data, {
@@ -178,13 +167,11 @@ describe( 'distributions-uniform-pdf', function tests() {
 		});
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( data, expected );
 	});
 
-	it( 'should evaluate the Uniform pdf when provided a typed array', function test() {
-		var data, actual, expected, i;
+	it( 'should evaluate the probability density function when provided a typed array', function test() {
+		var data, actual, expected;
 
 		data = new Int8Array( [ -3, -2, -1, 0, 1, 2, 3 ] );
 
@@ -198,9 +185,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 		});
 		assert.notEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 
 		// Mutate:
 		actual = pdf( data, {
@@ -213,12 +198,10 @@ describe( 'distributions-uniform-pdf', function tests() {
 		]);
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 	});
 
-	it( 'should evaluate the Uniform pdf element-wise and return an array of a specific type', function test() {
+	it( 'should evaluate the probability density function element-wise and return an array of a specific type', function test() {
 		var data, actual, expected;
 
 		data = [ -3, -2, -1, 0, 1, 2, 3 ];
@@ -235,8 +218,8 @@ describe( 'distributions-uniform-pdf', function tests() {
 		assert.deepEqual( actual, expected );
 	});
 
-	it( 'should evaluate the Uniform pdf element-wise using an accessor', function test() {
-		var data, actual, expected, i;
+	it( 'should evaluate the probability density function element-wise using an accessor', function test() {
+		var data, actual, expected;
 
 		data = [
 			[0,-3],
@@ -265,9 +248,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 		});
 		assert.notEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 
 		// Mutate:
 		actual = pdf( data, {
@@ -278,17 +259,15 @@ describe( 'distributions-uniform-pdf', function tests() {
 		});
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ], expected[ i ], 1e-7 );
-		}
+		assert.deepEqual( data, expected );
 
 		function getValue( d ) {
 			return d[ 1 ];
 		}
 	});
 
-	it( 'should evaluate the Uniform pdf element-wise and deep set', function test() {
-		var data, actual, expected, i;
+	it( 'should evaluate the probability density function element-wise and deep set', function test() {
+		var data, actual, expected;
 
 		data = [
 			{'x':[0,-3]},
@@ -317,9 +296,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 
 		// Specify a path with a custom separator...
 		data = [
@@ -339,12 +316,10 @@ describe( 'distributions-uniform-pdf', function tests() {
 		});
 		assert.strictEqual( actual, data );
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-7 );
-		}
+		assert.deepEqual( actual, expected );
 	});
 
-	it( 'should evaluate the Uniform pdf element-wise when provided a matrix', function test() {
+	it( 'should evaluate the probability density function element-wise when provided a matrix', function test() {
 		var mat,
 			out,
 			d1,
@@ -375,7 +350,7 @@ describe( 'distributions-uniform-pdf', function tests() {
 		assert.deepEqual( mat.data, d2 );
 	});
 
-	it( 'should evaluate the Uniform pdf element-wise and return a matrix of a specific type', function test() {
+	it( 'should evaluate the probability density function element-wise and return a matrix of a specific type', function test() {
 		var mat,
 			out,
 			d1,

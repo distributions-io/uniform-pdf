@@ -6,12 +6,12 @@ Probability Density Function
 
 The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) random variable is
 
-<div class="equation" align="center" data-raw-text="f(x;a,b)=\begin{cases} \frac{1}{b - a} & \text{for } x \in [a,b] \\ 0 & \text{otherwise} \end{cases}" data-equation="eq:pdf_function">
+<div class="equation" align="center" data-raw-text="f(x;a,b)=\begin{cases} \frac{1}{b - a} &amp; \text{for } x \in [a,b] \\ 0 &amp; \text{otherwise} \end{cases}" data-equation="eq:pdf_function">
 	<img src="https://cdn.rawgit.com/distributions-io/uniform-pdf/3f431ac7f7c1eef0bdc89e33caf772164ae8c0a2/docs/img/eqn.svg" alt="Probability density function (PDF) for a continuous uniform distribution.">
 	<br>
 </div>
 
-where `a` is the minimum value and `b` is the maximum value of the distribution.
+where `a` is the minimum support and `b` is the maximum support of the distribution.
 
 ## Installation
 
@@ -86,15 +86,15 @@ out = pdf( mat );
 
 The function accepts the following `options`:
 
-*	__a__: minimum value. Default: `0`.
-*	__b__: maximum value. Default: `1`.
+*	__a__: minimum support. Default: `0`.
+*	__b__: maximum support. Default: `1`.
 * 	__accessor__: accessor `function` for accessing `array` values.
 * 	__dtype__: output [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) or [`matrix`](https://github.com/dstructs/matrix) data type. Default: `float64`.
 *	__copy__: `boolean` indicating if the `function` should return a new data structure. Default: `true`.
 *	__path__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path.
 *	__sep__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path separator. Default: `'.'`.
 
-A [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution is a function of two parameters: `a`(minimum value) and `b`(maximum value). By default, `a` is equal to `0` and `b` is equal to `1`. To adjust either parameter, set the corresponding option.
+A [continuous uniform](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)) distribution is a function of two parameters: `a` (minimum support) and `b` (maximum support). By default, `a` is equal to `0` and `b` is equal to `1`. To adjust either parameter, set the corresponding option.
 
 ``` javascript
 var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
@@ -396,8 +396,8 @@ Copyright &copy; 2015. The [Compute.io](https://github.com/compute-io) Authors.
 [travis-image]: http://img.shields.io/travis/distributions-io/uniform-pdf/master.svg
 [travis-url]: https://travis-ci.org/distributions-io/uniform-pdf
 
-[coveralls-image]: https://img.shields.io/coveralls/distributions-io/uniform-pdf/master.svg
-[coveralls-url]: https://coveralls.io/r/distributions-io/uniform-pdf?branch=master
+[codecov-image]: https://img.shields.io/codecov/c/github/distributions-io/uniform-pdf/master.svg
+[codecov-url]: https://codecov.io/github/distributions-io/uniform-pdf?branch=master
 
 [dependencies-image]: http://img.shields.io/david/distributions-io/uniform-pdf.svg
 [dependencies-url]: https://david-dm.org/distributions-io/uniform-pdf

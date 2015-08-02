@@ -3,10 +3,7 @@
 
 // MODULES //
 
-var // Expectation library:
-	chai = require( 'chai' ),
-
-	// Module to be tested:
+var chai = require( 'chai' ),
 	pdf = require( './../lib/accessor.js' );
 
 
@@ -18,14 +15,14 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'accessor Uniform-pdf', function tests() {
+describe( 'accessor pdf', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( pdf ).to.be.a( 'function' );
 	});
 
-	it( 'should evaluate the Uniform pdf using an accessor', function test() {
-		var data, actual, expected, i;
+	it( 'should evaluate the probability density function using an accessor', function test() {
+		var data, actual, expected;
 
 		data = [
 			{'x':-3},
@@ -50,14 +47,10 @@ describe( 'accessor Uniform-pdf', function tests() {
 			0
 		];
 
-		for ( i = 0; i < actual.length; i++ ) {
-			assert.closeTo( actual[ i ], expected[ i ], 1e-7 );
-		}
-
+		assert.deepEqual( actual, expected );
 		function getValue( d ) {
 			return d.x;
 		}
-
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {
